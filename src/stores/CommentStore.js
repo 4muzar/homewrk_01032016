@@ -1,16 +1,20 @@
 import SimpleStore from './SimpleStore'
-import { DELETE_ARTICLE } from '../actions/constants'
+import { ADD_COMMENT } from '../actions/constants'
 import AppDispatcher from '../dispatcher'
 
-class ArticleStore extends SimpleStore {
+class CommentStore extends SimpleStore {
     constructor(...args) {
         super(...args)
         this.dispatchToken = AppDispatcher.register((action) => {
             const { type, data } = action
             
             switch (type) {
-                case DELETE_ARTICLE:
-                    this.delete(data.id)
+                case ADD_COMMENT:
+                    const newCommentId = ++this.getAll().pop().id
+                    this.add({
+                        id: newCommentId,
+                        text: data.text
+                    })
                     break;
 
                 default: return
@@ -21,4 +25,4 @@ class ArticleStore extends SimpleStore {
     }
 }
 
-export default ArticleStore
+export default CommentStore

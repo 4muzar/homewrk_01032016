@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import Comment from './Comment'
+import { addComment } from './actions/comments'
 
 class CommentList extends Component {
     static propTypes = {
@@ -29,8 +30,8 @@ class CommentList extends Component {
         return (
             <div>
                 <ul>{comments}</ul>
-                <input type="text" placeholder="Новый комментарий" onChange={this.handleNewCommentChange}/>
-                <input type="button" value="Добавить" onClick={this.addComment}/>
+                <input type="text" placeholder="Новый комментарий" value={this.state.newComment} onChange={this.handleNewCommentChange}/>
+                <input type="button" value="Добавить" onClick={this.addCommentHandler}/>
             </div>
         )
     }
@@ -48,8 +49,11 @@ class CommentList extends Component {
         })
     }
 
-    addComment = (ev) => {
-        console.log(this.state.newComment);
+    addCommentHandler = (ev) => {
+        addComment(this.state.newComment);
+        this.setState({
+            newComment: ''
+        });
     }
 }
 

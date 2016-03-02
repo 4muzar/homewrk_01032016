@@ -7,20 +7,38 @@ class CommentList extends Component {
     };
 
     state = {
-        isOpen: false
+        isOpen: false,
+        newComment: ''
     }
 
     render() {
         const { isOpen } = this.state
         const actionText = isOpen ? 'hide comments' : 'show comments'
 
-        const comments = this.props.comments.map((comment) => <li key={comment.id}><Comment comment = {comment}/></li>)
+        
         return (
             <div>
                 <a href = "#" onClick = {this.toggleOpen}>{actionText}</a>
-                <ul>{isOpen ? comments : null}</ul>
+                {isOpen ? this.getCommentsBody() : null}
             </div>
         )
+    }
+
+    getCommentsBody() {
+        const comments = this.props.comments.map((comment) => <li key={comment.id}><Comment comment = {comment}/></li>)
+        return (
+            <div>
+                <ul>{comments}</ul>
+                <input type="text" placeholder="Новый комментарий" onChange={this.handleNewCommentChange}/>
+                <input type="button" value="Добавить" onClick={this.addComment}/>
+            </div>
+        )
+    }
+
+    handleNewCommentChange = (ev) => {
+        this.setState({
+            newComment: ev.target.value
+        });
     }
 
     toggleOpen = (ev) => {
@@ -28,6 +46,10 @@ class CommentList extends Component {
         this.setState({
             isOpen: !this.state.isOpen
         })
+    }
+
+    addComment = (ev) => {
+        console.log(this.state.newComment);
     }
 }
 

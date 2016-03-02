@@ -10,7 +10,7 @@ class CommentStore extends SimpleStore {
             
             switch (type) {
                 case ADD_COMMENT:
-                    const newCommentId = ++this.getAll().pop().id
+                    const newCommentId = this.getAll().pop().id + 1;
                     this.add({
                         id: newCommentId,
                         text: data.text

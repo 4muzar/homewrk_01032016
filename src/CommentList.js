@@ -50,7 +50,7 @@ class CommentList extends Component {
     }
 
     addCommentHandler = (ev) => {
-        addComment(this.state.newComment);
+        addComment(this.state.newComment, this.props.articleId);
         this.setState({
             newComment: ''
         });

@@ -20,6 +20,7 @@ class ArticleStore extends SimpleStore {
 
                     const newComment = commentStore.getAll().pop();
                     const articles = this.getAll();
+                    //this.getById
                     let updatedArticle = articles.find((article) => article.id == action.data.articleId);
                     updatedArticle.comments = updatedArticle.comments || [];
                     updatedArticle.comments.push(newComment.id);
